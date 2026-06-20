@@ -3,56 +3,56 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  Zap,
-  LayoutDashboard,
-  BarChart3,
-  TrendingUp,
-  Battery,
-  Bot,
-  ExternalLink,
+  Zap, LayoutDashboard, TrendingUp,
+  Battery, Bot, FileText, Settings,
+  CheckCircle,
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 const NAV = [
-  { href: '/dashboard',  label: 'Dashboard',  icon: LayoutDashboard },
-  { href: '/analytics',  label: 'Analytics',  icon: BarChart3 },
-  { href: '/forecast',   label: 'Forecast',   icon: TrendingUp },
-  { href: '/optimizer',  label: 'Optimizer',  icon: Battery },
-  { href: '/copilot',    label: 'AI Copilot', icon: Bot },
+  { href: '/dashboard', label: 'Dashboard',  icon: LayoutDashboard },
+  { href: '/forecast',  label: 'Forecast',   icon: TrendingUp },
+  { href: '/optimizer', label: 'Optimizer',  icon: Battery },
+  { href: '/copilot',   label: 'Copilot',    icon: Bot },
+  { href: '/analytics', label: 'Reports',    icon: FileText },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-60 shrink-0 flex flex-col bg-gray-900 border-r border-gray-800">
+    <aside className="w-56 shrink-0 flex flex-col h-screen sticky top-0" style={{ background: 'var(--bg-1)', borderRight: '1px solid var(--border)' }}>
       {/* Logo */}
-      <div className="px-5 py-5 border-b border-gray-800">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
-            <Zap className="w-4 h-4 text-green-400" />
+      <div className="px-5 py-5" style={{ borderBottom: '1px solid var(--border)' }}>
+        <Link href="/" className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center glow-green" style={{ background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)' }}>
+            <Zap className="w-4 h-4" style={{ color: 'var(--accent)' }} />
           </div>
           <div>
-            <p className="text-sm font-bold text-white leading-none">EnergyFlow</p>
-            <p className="text-xs text-green-400 font-medium">AI</p>
+            <span className="text-sm font-bold" style={{ color: 'var(--text-1)' }}>EnergyFlow</span>
+            <span className="text-sm font-bold ml-1" style={{ color: 'var(--accent)' }}>AI</span>
           </div>
         </Link>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-1">
+      <nav className="flex-1 px-3 py-4 space-y-0.5">
         {NAV.map(({ href, label, icon: Icon }) => {
           const active = pathname.startsWith(href);
           return (
             <Link
               key={href}
               href={href}
-              className={cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all',
-                active
-                  ? 'bg-green-500/15 text-green-400 border border-green-500/20'
-                  : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800',
-              )}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all"
+              style={active ? {
+                background: 'rgba(34,197,94,0.12)',
+                color: 'var(--accent)',
+                border: '1px solid rgba(34,197,94,0.2)',
+              } : {
+                color: 'var(--text-muted)',
+                border: '1px solid transparent',
+              }}
+              onMouseEnter={e => { if (!active) (e.currentTarget as HTMLElement).style.color = 'var(--text-2)'; }}
+              onMouseLeave={e => { if (!active) (e.currentTarget as HTMLElement).style.color = 'var(--text-muted)'; }}
             >
               <Icon className="w-4 h-4 shrink-0" />
               {label}
@@ -61,20 +61,15 @@ export function Sidebar() {
         })}
       </nav>
 
-      {/* Footer */}
-      <div className="px-4 py-4 border-t border-gray-800">
-        <a
-          href="http://localhost:8000/docs"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 text-xs text-gray-500 hover:text-gray-300 transition-colors"
-        >
-          <ExternalLink className="w-3 h-3" />
-          API Docs (FastAPI)
-        </a>
-        <p className="text-xs text-gray-600 mt-2">
-          ERCOT · Austin TX · 100kWh Battery
-        </p>
+      {/* Status */}
+      <div className="px-4 py-4" style={{ borderTop: '1px solid var(--border)' }}>
+        <div className="flex items-center gap-2">
+          <CheckCircle className="w-3.5 h-3.5" style={{ color: 'var(--accent)' }} />
+          <div>
+            <p className="text-xs font-medium" style={{ color: 'var(--accent)' }}>System Status</p>
+            <p className="text-xs" style={{ color: 'var(--text-muted)' }}>All Systems Operational</p>
+          </div>
+        </div>
       </div>
     </aside>
   );

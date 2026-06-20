@@ -1,133 +1,111 @@
 import Link from 'next/link';
-import { Zap, BarChart3, TrendingUp, Battery, Bot, ArrowRight, Github } from 'lucide-react';
+import { Zap, BarChart3, TrendingUp, Battery, Bot, ArrowRight } from 'lucide-react';
 
 const FEATURES = [
   {
     icon:  BarChart3,
-    color: 'text-blue-400',
-    bg:    'bg-blue-400/10',
-    title: 'Real Analytics',
-    desc:  'SQL queries against live Postgres. KPIs, daily totals, solar penetration, and cost breakdowns.',
+    color: '#3b82f6',
+    title: 'Real-Time Analytics',
+    desc:  'Live KPIs, daily totals, solar penetration rates, and cost breakdowns — updated continuously from real grid and weather data.',
     href:  '/analytics',
   },
   {
     icon:  TrendingUp,
-    color: 'text-yellow-400',
-    bg:    'bg-yellow-400/10',
-    title: 'ML Forecasting',
-    desc:  'XGBoost models forecast demand, solar generation, and ERCOT prices 24–168h ahead.',
+    color: '#f59e0b',
+    title: 'AI Forecasting',
+    desc:  'Machine learning models forecast energy demand, solar generation, and ERCOT grid prices up to 7 days ahead with confidence intervals.',
     href:  '/forecast',
   },
   {
     icon:  Battery,
-    color: 'text-purple-400',
-    bg:    'bg-purple-400/10',
-    title: 'LP Optimisation',
-    desc:  'PuLP linear program minimises electricity cost by scheduling battery charge/discharge.',
+    color: '#8b5cf6',
+    title: 'Battery Optimizer',
+    desc:  'Linear programming engine determines the optimal charge/discharge schedule to minimize electricity costs across the next 24 hours.',
     href:  '/optimizer',
   },
   {
     icon:  Bot,
-    color: 'text-green-400',
-    bg:    'bg-green-400/10',
+    color: '#22c55e',
     title: 'AI Copilot',
-    desc:  'Natural-language interface to query your energy data. Powered by GPT-4o-mini or rule-based engine.',
+    desc:  'Ask questions in plain English — "Why did costs spike yesterday?" — and get instant answers grounded in your real energy data.',
     href:  '/copilot',
   },
 ];
 
-const STACK = [
-  { label: 'FastAPI',     color: 'bg-teal-500/20 text-teal-300' },
-  { label: 'Python',      color: 'bg-yellow-500/20 text-yellow-300' },
-  { label: 'XGBoost',     color: 'bg-orange-500/20 text-orange-300' },
-  { label: 'PuLP LP',     color: 'bg-purple-500/20 text-purple-300' },
-  { label: 'PostgreSQL',  color: 'bg-blue-500/20 text-blue-300' },
-  { label: 'Next.js',     color: 'bg-gray-500/20 text-gray-300' },
-  { label: 'Tailwind',    color: 'bg-cyan-500/20 text-cyan-300' },
-  { label: 'Vercel',      color: 'bg-pink-500/20 text-pink-300' },
-];
-
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gray-950">
+    <div className="min-h-screen" style={{ background: 'var(--bg-0)' }}>
       {/* Hero */}
       <section className="relative px-8 pt-24 pb-16 text-center overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#16a34a15_0%,_transparent_70%)]" />
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, rgba(34,197,94,0.08) 0%, transparent 70%)' }} />
         <div className="relative max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6" style={{ background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)', color: 'var(--accent)' }}>
             <Zap className="w-3 h-3" />
-            ERCOT · Austin TX · 100kWh Battery System
+            ERCOT · Austin TX · Live Energy Intelligence
           </div>
-          <h1 className="text-5xl font-extrabold text-white mb-4 leading-tight">
-            EnergyFlow <span className="text-green-400">AI</span>
+          <h1 className="text-5xl font-extrabold mb-4 leading-tight" style={{ color: 'var(--text-1)' }}>
+            EnergyFlow <span style={{ color: 'var(--accent)' }}>AI</span>
           </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
-            Production-grade energy analytics platform. Real SQL, real ML,
-            real LP optimisation — not a mockup.
+          <p className="text-xl max-w-2xl mx-auto mb-8" style={{ color: 'var(--text-muted)' }}>
+            Real-time energy intelligence for microgrids and distributed energy resources.
+            Live grid data, AI forecasting, and automated battery optimization — in one platform.
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <Link href="/dashboard" className="btn-primary flex items-center gap-2">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all"
+              style={{ background: 'var(--accent)', color: '#000' }}
+            >
               Open Dashboard <ArrowRight className="w-4 h-4" />
             </Link>
-            <a
-              href="http://localhost:8000/docs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary"
+            <Link
+              href="/analytics"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all"
+              style={{ background: 'var(--bg-2)', color: 'var(--text-2)', border: '1px solid var(--border)' }}
             >
-              API Docs
-            </a>
+              View Reports
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Features */}
       <section className="px-8 pb-16 max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {FEATURES.map(({ icon: Icon, color, bg, title, desc, href }) => (
-            <Link key={title} href={href} className="card group hover:border-gray-600 transition-all">
-              <div className={`w-10 h-10 rounded-xl ${bg} flex items-center justify-center mb-4`}>
-                <Icon className={`w-5 h-5 ${color}`} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {FEATURES.map(({ icon: Icon, color, title, desc, href }) => (
+            <Link key={title} href={href} className="card-hover group rounded-xl p-5 flex gap-4">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5" style={{ background: `${color}18` }}>
+                <Icon className="w-5 h-5" style={{ color }} />
               </div>
-              <h3 className="text-base font-semibold text-white mb-2 group-hover:text-green-400 transition-colors">
-                {title} <ArrowRight className="w-3 h-3 inline opacity-0 group-hover:opacity-100 transition-opacity" />
-              </h3>
-              <p className="text-sm text-gray-400 leading-relaxed">{desc}</p>
+              <div>
+                <h3 className="text-sm font-semibold mb-1.5 flex items-center gap-1" style={{ color: 'var(--text-1)' }}>
+                  {title}
+                  <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--accent)' }} />
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>{desc}</p>
+              </div>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* Tech stack */}
-      <section className="px-8 pb-16 max-w-5xl mx-auto">
-        <div className="card">
-          <h2 className="text-base font-semibold text-gray-300 mb-4">Technology Stack</h2>
-          <div className="flex flex-wrap gap-2">
-            {STACK.map(({ label, color }) => (
-              <span key={label} className={`badge ${color} px-3 py-1`}>{label}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Data pipeline */}
+      {/* Data sources */}
       <section className="px-8 pb-24 max-w-5xl mx-auto">
-        <div className="card">
-          <h2 className="text-base font-semibold text-gray-300 mb-4">Data Pipeline</h2>
-          <div className="flex items-center gap-3 flex-wrap text-sm">
+        <div className="card text-center">
+          <p className="text-xs mb-3" style={{ color: 'var(--text-muted)' }}>LIVE DATA SOURCES</p>
+          <div className="flex items-center justify-center gap-4 flex-wrap">
             {[
-              'Synthetic / ERCOT API',
-              'ETL (Python)',
-              'Neon Postgres',
-              'SQL Analytics',
-              'ML Models',
-              'LP Optimizer',
-              'FastAPI',
-              'Next.js Dashboard',
-            ].map((step, i, arr) => (
-              <span key={step} className="flex items-center gap-3">
-                <span className="text-gray-300 bg-gray-800 px-2 py-1 rounded">{step}</span>
-                {i < arr.length - 1 && <span className="text-gray-600">→</span>}
+              { name: 'Open-Meteo',     desc: 'Solar & Weather' },
+              { name: 'EIA / ERCOT',    desc: 'Grid Demand' },
+              { name: 'Forecasting',    desc: 'ML Models' },
+              { name: 'Optimization',   desc: 'Battery LP' },
+            ].map(({ name, desc }, i, arr) => (
+              <span key={name} className="flex items-center gap-4">
+                <span className="text-center">
+                  <p className="text-sm font-semibold" style={{ color: 'var(--text-2)' }}>{name}</p>
+                  <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{desc}</p>
+                </span>
+                {i < arr.length - 1 && <span style={{ color: 'var(--text-muted)' }}>→</span>}
               </span>
             ))}
           </div>
