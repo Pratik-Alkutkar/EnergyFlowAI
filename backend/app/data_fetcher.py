@@ -239,7 +239,13 @@ async def fetch_real_dataset(days: int = 90) -> pd.DataFrame:
     # ── 3. Merge or fall back ────────────────────────────────────────────────
     if not eia_df.empty:
         merged = weather_df.merge(eia_df, on="timestamp", how="left")
-        merged["ercot_demand_mwh"] = merged["ercot_demand_mwh"].interpolate("time").fillna(method="bfill").fillna(method="ffill")
+        merged["ercot_demand_mwh"] = (
+            merged.set_index("timestamp")["ercot_demand_mwh"]
+            .interpolate("time")
+            .bfill()
+            .ffill()
+            .values
+        )
         merged["demand_kwh"]     = _scale_demand(merged["ercot_demand_mwh"])
         merged["ercot_price_mwh"] = _price_from_demand(merged["ercot_demand_mwh"], rng).values
     else:
