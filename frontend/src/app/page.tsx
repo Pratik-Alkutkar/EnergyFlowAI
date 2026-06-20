@@ -15,7 +15,7 @@ const FEATURES = [
     icon: TrendingUp,
     accent: '#f59e0b',
     label: 'Forecasting',
-    title: 'Know what's coming before it does.',
+    title: "Know what's coming before it does.",
     desc: 'Predict demand, solar generation, and ERCOT prices up to 48 hours ahead. Built for procurement teams and dispatch engineers.',
     href: '/forecast',
     delay: 'delay-300',
