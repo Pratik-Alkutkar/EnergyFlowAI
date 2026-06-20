@@ -145,7 +145,7 @@ export default function DashboardPage() {
       <header className="sticky top-0 z-10 px-6 py-4 flex items-center gap-4" style={{ background: 'var(--bg-0)', borderBottom: '1px solid var(--border)' }}>
         <div className="flex-1">
           <h1 className="text-lg font-bold" style={{ color: 'var(--text-1)' }}>
-            {greeting()}, Alex 👋
+            {greeting()}, Pratik 👋
           </h1>
           <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Here&apos;s your energy overview for today.</p>
         </div>
@@ -165,7 +165,7 @@ export default function DashboardPage() {
           <button className="p-2 rounded-lg" style={{ background: 'var(--bg-2)' }}>
             <Settings className="w-4 h-4" style={{ color: 'var(--text-muted)' }} />
           </button>
-          <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'var(--accent)', color: '#000' }}>A</div>
+          <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'var(--accent)', color: '#000' }}>P</div>
         </div>
       </header>
 
